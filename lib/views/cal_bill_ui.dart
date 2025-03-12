@@ -15,9 +15,21 @@ class _CalBillUiState extends State<CalBillUI> {
   bool? isAdult = false;
   bool? isChild = false;
 
+  //สร้างตัวแปรเก็บสภถานะใช้ได้ไม่ได้ ป้อนโค้กน้ำเปล่า
+  bool? iswater = false;
+
   //สร้างตัวควบคุม   TextField
   TextEditingController adultCtrl = TextEditingController();
   TextEditingController childCtrl = TextEditingController();
+  TextEditingController cokeCtrl = TextEditingController();
+  TextEditingController pureCtrl = TextEditingController();
+
+  //สร้างตัวแปร Radio  เพื่อให้อยู่กลุ่มเดียวกัน
+  int groupWator = 1;
+
+  //สร้างตัวแปรที่เลือกจาก Dropdoen
+  String? groupMember = 'ไม่เป็นสมาชิก';
+
 
   Future getCemera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -187,6 +199,160 @@ class _CalBillUiState extends State<CalBillUI> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      value: 1,
+                      groupValue: groupWator,
+                      onChanged: (value) {
+                        setState(() {
+                          groupWator = value!;
+                          iswater = false;
+                          cokeCtrl.clear();
+                          pureCtrl.clear();
+                        });
+                      },
+                    ),
+                    Text(
+                      'รับ 25 บาท/หัว',
+                    ),
+                  ],
+                ),
+                 Row(
+                  children: [
+                    Radio(
+                      value: 2,
+                      groupValue: groupWator,
+                      onChanged: (value) {
+                         setState(() {
+                          groupWator = value!;
+                          iswater = true;
+                        });
+                      },
+                    ),
+                    Text(
+                      'ไม่รับ',
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'โค้ก 20 บาท/ขวด จำนวน  ',
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: cokeCtrl,
+                        enabled: iswater,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: '0',
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'ขวด',
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'น้ำเปล่า 15 บาท/ขวด จำนวน  ',
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: pureCtrl,
+                        enabled: iswater,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: '0',
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'ขวด',
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),        
+                Row(
+                  children: [
+                    Text(
+                      'ประเภทสมาชิก',
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    DropdownButton<String>(
+                      value: groupMember,
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: const Color.fromARGB(255, 214, 35, 35),
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          groupMember = newValue!;
+                        });
+                      },
+                      items: <String>['ไม่เป็นสมาชิก', 'สมาชิกทั่วไปลด 10%', 'สมาชิก VIPลด 20%']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: groupMember == value ? Colors.redAccent: Colors.black,
+                            ),
+                            ),
+                        );
+                      }).toList(),
+                    ),                    
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.calculate,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'คำนวณ',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'ยกเลิก',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
