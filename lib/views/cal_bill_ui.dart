@@ -42,12 +42,56 @@ class _CalBillUiState extends State<CalBillUI> {
           child: Center(
             child: Column(
               children: [
-               Image.asset(
-                  'assets/images/camera.jpg',
-                  width: 130,
-                  height: 130,
-                  fit: BoxFit.cover,
-                ),
+               InkWell(
+                onTap: () {
+                  showBottomSheet(
+                    context: context,
+                    builder: (context) => Wrap(
+                      children: [
+                        ListTile(
+                         onTap: () {
+                              getCemera()
+                                  .then((Value) => {Navigator.pop(context)});
+                            },
+                          leading: Icon(
+                            Icons.camera_alt,
+                            color: Colors.deepOrange,
+                          ),
+                          title: Text(
+                            'เปิดกล้อง',
+                            style: TextStyle(
+                              color: Colors.deepOrange
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          onTap: () {
+                              getGallery()
+                                  .then((Value) => {Navigator.pop(context)});
+                            },
+                          leading: Icon(
+                            Icons.browse_gallery,
+                            color: Colors.deepOrange,
+                          ),
+                          title: Text(
+                            'เปิดแกลเลอรี่',
+                            style: TextStyle(
+                              color: Colors.deepOrange
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  );
+                },
+                 child: Image.asset(
+                    'assets/images/camera.jpg',
+                    width: 130,
+                    height: 130,
+                    fit: BoxFit.cover,
+                  ),
+               ),
               ],
             ),
           ),
