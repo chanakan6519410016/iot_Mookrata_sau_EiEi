@@ -18,9 +18,9 @@ class _HomeUiState extends State<HomeUi> {
 
 //สร้างตัวแปรเก็บ ui ที่จะแสดซ่งล้อกับ item ของ AnimatedNotchBottomBar ที่เลือก
 List<Widget>itemUIshow = [
-  CalBillUi(),
-  MenuUi(),
-  AboutUi(),
+  CalBillUI(),
+  MenuUI(),
+  AboutUI(),
 ];
 //สร้างตัวแปรเก็บ index ของ item ที่เลือก
 int selectIhdex = 1 ;

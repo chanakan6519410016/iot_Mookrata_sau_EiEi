@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MenuUi extends StatefulWidget {
-  const MenuUi({super.key});
+class MenuUI extends StatefulWidget {
+  const MenuUI({super.key});
 
   @override
-  State<MenuUi> createState() => _MenuUiState();
+  State<MenuUI> createState() => _MenuUIState();
 }
 
-class _MenuUiState extends State<MenuUi> {
+class _MenuUIState extends State<MenuUI> {
 //เก็บรูปที่จะไปแสดงที่ ListView เมนูหมูกะทะ
 List <String> menuList = [
   'assets/images/img1.png',
