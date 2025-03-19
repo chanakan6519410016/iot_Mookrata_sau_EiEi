@@ -1,17 +1,124 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-class ShowBillUi extends StatefulWidget {
-  const ShowBillUi({super.key});
+class ShowBillUI extends StatefulWidget {
+  //สร้างตัวแปรเพื่อรับข้อม฿ลที่จะส่งมาหน้า cal_bill
+  int? numAdult;
+  int? numChild;
+  int? numCoke;
+  int?numPure;
+  double? payWaterBuffer;
+  double? payBuffetTotalNoSale;
+  double? paySale;
+  double?payBuffetTotal;
+  File? imageFile;
 
+  //เอาตัวแปรที่สร้างไปรับข้อมูลที่ส่งมา
+  ShowBillUI({
+    super.key,
+    this.numAdult,
+    this.numChild,
+    this.numCoke,
+    this.numPure,
+    this.payWaterBuffer,
+    this.payBuffetTotalNoSale,
+    this.paySale,
+    this.payBuffetTotal, File? imageFile,
+  });
   @override
-  State<ShowBillUi> createState() => _ShowBillUiState();
+  State<ShowBillUI> createState() => _ShowBillUIState();
 }
 
-class _ShowBillUiState extends State<ShowBillUi> {
+class _ShowBillUIState extends State<ShowBillUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        title: Text('ใบเสร็จรับเงิน',
+            style: TextStyle(
+              color: Colors.white,
+            )),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(children: [
+            SizedBox(
+              height: 40,
+            ),
+            widget.imageFile == null
+                ? Image.asset(
+                    'assets/images/camera.jpg',
+                    width: 150,
+                    height: 150,
+                  )
+                : Image.file(
+                    widget.imageFile!,
+                    width: 200,
+                    height: 200,
+                  ),
+            SizedBox(
+              height: 20,
+            ),
+            Text('รายละเอียดใบเสร็จรับเงิน',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(
+              height: 20,
+            ),
+            Text('จํานวนผู้ใหญ่: ${widget.numAdult} คน'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('จํานวนผู้เด็ก: ${widget.numChild} คน'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('จํานวนโค้ก: ${widget.numCoke} ขวด'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('จํานวนน้ำเปล่า: ${widget.numPure} ขวด'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('ราคาบุฟเฟ่ต์นํ้า: ${widget.payWaterBuffer} บาท'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('ส่วนลดเป็นเงิน: ${widget.paySale} บาท'),
+            SizedBox(
+              height: 20,
+            ),
+            Text('ราคาบุฟเฟ่ต์ทั้งหมด: ${widget.payBuffetTotal} บาท',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red)),
+            SizedBox(
+              height: 20,
+            ),
+            Image.asset(
+              'assets/images/payqr.png',
+              width: 150,
+              height: 150,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }
